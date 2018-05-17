@@ -1,0 +1,13 @@
+
+               NSString+CZ.h
+
+                     总时间
+            double time = [ZBMusicTool sharedZBMusicTool].audioPlayer.duration;
+            self.totallyTime.text = [NSString getMinuteSecondWithSecond:time];
+
+
+
+
+
+
+

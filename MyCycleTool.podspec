@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "MyCycleTool"
-s.version      = "1.0.0"
+s.version      = "1.0.1"
 s.summary      = "MyCycleTool."
 s.homepage     = "https://github.com/cqcycle/MyCycleTool.git"
 s.license      = "MIT"

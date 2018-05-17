@@ -1,0 +1,58 @@
+                 NSDate+MJ.h
+#pragma mark  ----重写时间get方法,微博日期格式EEE MMM d HH:mm:ss Z yyyy  利用 MJ 的时间格式转换
+-(NSString *)created_at
+{
+//格式化HH是24小时制,hh是12小时制
+NSDateFormatter *sdf=[[NSDateFormatter alloc]init];
+[sdf setDateFormat:@"EEE MMM d HH:mm:ss Z yyyy"];
+// 让时间本地化,让日期格式字符串知道来自哪（EEE MMM d HH:mm:ss Z yyyy）,当发送微博时可以检测到,判断控件是否存在,点击debug
+
+sdf.locale = [NSLocale localeWithLocaleIdentifier:@"en_us"];
+// 字符串转日期
+NSDate *created_at=[sdf dateFromString:_created_at];
+//今年
+if([created_at isThisYear])
+{
+//今天
+  if ([created_at isToday]) {
+
+        //根据时间组件判断时间差
+        NSDateComponents *cmp=[created_at deltaWithNow];
+
+        //1.判断是大于1小时
+        if (cmp.hour >= 1) {
+        return [NSString stringWithFormat:@"%ld小时之前",(long)cmp.hour];
+        //2.判断时间在1-60分钟之内
+        }else if (cmp.minute >=1 && cmp.minute<60){
+        return [NSString stringWithFormat:@"%ld分钟之前",(long)cmp.minute];
+        //3.判断时间在1分钟之内
+        }else{
+        return @"刚刚";
+        }
+        }else if ([created_at isYesterday]){ //昨天
+        [sdf setDateFormat:@"昨天 HH:mm"];
+        }else{//两天前
+        [sdf setDateFormat:@"MM:dd HH:mm"];
+        return [sdf stringFromDate:created_at];
+        }
+
+   } else { //不是今年
+
+        [sdf setDateFormat:@"yyyy:MM:dd HH:mm"];
+        return [sdf stringFromDate:created_at];
+
+}
+
+
+return _created_at;
+
+}
+
+
+
+
+
+
+
+
+
